@@ -1,32 +1,128 @@
-# React + TypeScript + Vite
+# React-Router-NavLink-SidebarApp
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+React Routerの`NavLink`を使用して、管理画面を想定したサイドナビゲーションを実装する練習用アプリです。
 
-Currently, two official plugins are available:
+## 概要
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+`NavLink`の`isActive`を使用して、現在表示しているページのナビゲーションリンクにアクティブスタイルを適用します。
 
-## React Compiler
+ページコンポーネントとナビゲーションコンポーネントを分離し、React Routerのルーティングとコンポーネント設計を練習します。
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 学習内容
 
-## Expanding the Oxlint configuration
+* `BrowserRouter`
+* `Routes`
+* `Route`
+* `NavLink`
+* `NavLink`の`isActive`
+* React Routerによるページ遷移
+* ナビゲーションコンポーネントの分離
+* ページコンポーネントの分離
+* Tailwind CSSによるアクティブスタイルの切り替え
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+## 問題
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+管理画面を想定して、サイドナビゲーションを`NavLink`で作成してください。
+
+### 作成するページ
+
+```text
+/dashboard
+/users
+/settings
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+### ナビゲーション
+
+```text
+Dashboard
+Users
+Settings
+```
+
+## 条件
+
+* 現在のページは`bg-blue-500 text-white`
+* 非アクティブなページは`text-gray-500`
+* すべてのリンクに`px-4 py-2`を設定
+* `NavLink`の`isActive`を使用
+* ナビゲーションを`Navigation.tsx`に分離
+* ページコンポーネントをそれぞれ分離する
+
+## ディレクトリ構成
+
+```text
+src/
+├── pages/
+│   ├── Dashboard.tsx
+│   ├── Users.tsx
+│   └── Settings.tsx
+├── components/
+│   └── Navigation.tsx
+├── App.tsx
+├── App.css
+├── index.css
+└── main.tsx
+```
+
+## 実装イメージ
+
+```text
+App
+│
+├── Navigation
+│   ├── Dashboard
+│   ├── Users
+│   └── Settings
+│
+└── Routes
+    ├── /dashboard → Dashboard
+    ├── /users     → Users
+    └── /settings  → Settings
+```
+
+## ポイント
+
+`NavLink`では`className`に関数を渡すことで、現在のURLに対応したリンクかどうかを`isActive`で判定できます。
+
+```tsx
+<NavLink
+  to="/dashboard"
+  className={({ isActive }) =>
+    isActive
+      ? "bg-blue-500 text-white px-4 py-2"
+      : "text-gray-500 px-4 py-2"
+  }
+>
+  Dashboard
+</NavLink>
+```
+
+## 使用技術
+
+* React
+* TypeScript
+* React Router
+* Tailwind CSS
+* Vite
+  #+
+
+## 起動方法
+
+```bash
+npm install
+npm run dev
+```
+
+ブラウザで表示されたURLにアクセスしてください。
+
+## 確認項目
+
+* `/dashboard`にアクセスするとDashboardが表示される
+* `/users`にアクセスするとUsersが表示される
+* `/settings`にアクセスするとSettingsが表示される
+* 現在のページのリンクに`bg-blue-500 text-white`が適用される
+* 非アクティブなリンクに`text-gray-500`が適用される
+* すべてのリンクに`px-4 py-2`が適用される
+* ナビゲーションが`Navigation.tsx`に分離されている
+* ページコンポーネントが分離されている
