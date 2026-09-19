@@ -7,7 +7,7 @@ import Navigation from "./components/Navigation";
 
 function App() {
   return (
-    <div>
+    <div className="min-h-screen bg-gray-800 flex flex-col justify-center items-center">
       <BrowserRouter>
         <h1>React-Router-NavLink-SidebarApp</h1>
         <Navigation />
